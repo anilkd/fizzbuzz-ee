@@ -74,4 +74,20 @@ public class FizzBuzzServiceTest {
         //then
         assertThat(result).isEqualTo(expectedResult);
     }
+
+    @Test
+    public void shouldSuccessfullyGenerateReportForNumbersInRange1to20() {
+        //given
+        int start = 1, end = 20;
+        String expectedResult = "1 2 lucky 4 buzz fizz 7 8 fizz buzz 11 fizz lucky 14 fizzbuzz 16 17 fizz 19 buzz\n" +
+                "lucky:2\n" +
+                "integer:10\n" +
+                "fizzbuzz:1\n" +
+                "fizz:4\n" +
+                "buzz:3";
+        //when
+        String result = fizzBuzzService.generateReport(start, end);
+        //then
+        assertThat(result).isEqualTo(expectedResult);
+    }
 }
