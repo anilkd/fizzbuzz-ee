@@ -14,6 +14,8 @@ public class FizzBuzzPredicateFactory {
     private static Predicate<Integer> isDivisibleByThree = i -> i % 3 == 0;
     private static Predicate<Integer> isDivisibleByThreeAndFive = i -> i % 3 == 0 && i % 5 == 0;
     private static Predicate<Integer> isDivisibleByFive = i -> i % 5 == 0;
+    private static Predicate<Integer> isNumberContainsThree = i -> String.valueOf(i).contains("3");
+
 
     private FizzBuzzPredicateFactory(){
 
@@ -22,6 +24,7 @@ public class FizzBuzzPredicateFactory {
 
     public static Map<Predicate<Integer>, String> getPredicateMap() {
         Map<Predicate<Integer>, String> predicateMap = new LinkedHashMap<>();
+        predicateMap.put(isNumberContainsThree, "lucky");
         predicateMap.put(isDivisibleByThreeAndFive, "fizzbuzz");
         predicateMap.put(isDivisibleByThree, "fizz");
         predicateMap.put(isDivisibleByFive, "buzz");

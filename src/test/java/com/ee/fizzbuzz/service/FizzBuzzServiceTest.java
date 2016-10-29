@@ -17,7 +17,7 @@ public class FizzBuzzServiceTest {
         //when
         String result = fizzBuzzService.parseNumbers(start, end);
         //then
-        assertThat(result).isEqualTo("fizz");
+        assertThat(result).isEqualTo("lucky");
     }
 
     @Test
@@ -34,7 +34,7 @@ public class FizzBuzzServiceTest {
     public void shouldSuccessfullyParseInputWithRange1to20() {
         //given
         int start = 1, end = 20;
-        String expectedResult = "1 2 fizz 4 buzz fizz 7 8 fizz buzz 11 fizz 13 14 fizzbuzz 16 17 fizz 19 buzz";
+        String expectedResult = "1 2 lucky 4 buzz fizz 7 8 fizz buzz 11 fizz lucky 14 fizzbuzz 16 17 fizz 19 buzz";
         //when
         String result = fizzBuzzService.parseNumbers(start, end);
         //then
@@ -62,5 +62,16 @@ public class FizzBuzzServiceTest {
         //then
         assertThat(throwable).isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("Invalid input with range start:5 end:3");
+    }
+
+    @Test
+    public void shouldReturnLuckyWhenNumberContainsThree() {
+        //given
+        int start = 13, end = 13;
+        String expectedResult = "lucky";
+        //when
+        String result = fizzBuzzService.parseNumbers(start, end);
+        //then
+        assertThat(result).isEqualTo(expectedResult);
     }
 }
