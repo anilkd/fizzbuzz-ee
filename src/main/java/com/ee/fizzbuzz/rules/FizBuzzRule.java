@@ -7,7 +7,8 @@ import java.util.function.Predicate;
 
 @Data
 @AllArgsConstructor
-public class FizBuzzRule<T, R> {
-    private Predicate<T> predicate;
-    private R result;
+public class FizBuzzRule {
+
+    private Predicate<Integer> predicate;
+    private String result;
 }

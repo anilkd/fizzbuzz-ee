@@ -9,7 +9,6 @@ public class FizzBuzzServiceTest {
 
     private FizzBuzzService fizzBuzzService = new FizzBuzzServiceImpl();
 
-
     @Test
     public void shouldReturnFizzWhenInputIsThree() {
         //given
@@ -41,7 +40,6 @@ public class FizzBuzzServiceTest {
         assertThat(result).isEqualTo(expectedResult);
     }
 
-
     @Test
     public void shouldThrowIllegalArgumentExceptionWhenRangeIsNegative() {
         //given
@@ -50,7 +48,7 @@ public class FizzBuzzServiceTest {
         Throwable throwable = catchThrowable(() -> fizzBuzzService.parseNumbers(start, end));
         //then
         assertThat(throwable).isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("Invalid input with range start:-5 end:5");
+                             .hasMessage("Invalid input with range start:-5 end:5");
     }
 
     @Test
@@ -61,7 +59,7 @@ public class FizzBuzzServiceTest {
         Throwable throwable = catchThrowable(() -> fizzBuzzService.parseNumbers(start, end));
         //then
         assertThat(throwable).isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("Invalid input with range start:5 end:3");
+                             .hasMessage("Invalid input with range start:5 end:3");
     }
 
     @Test
@@ -80,11 +78,11 @@ public class FizzBuzzServiceTest {
         //given
         int start = 1, end = 20;
         String expectedResult = "1 2 lucky 4 buzz fizz 7 8 fizz buzz 11 fizz lucky 14 fizzbuzz 16 17 fizz 19 buzz\n" +
-                "lucky:2\n" +
-                "integer:10\n" +
-                "fizzbuzz:1\n" +
-                "fizz:4\n" +
-                "buzz:3";
+                                "lucky:2\n" +
+                                "integer:10\n" +
+                                "fizzbuzz:1\n" +
+                                "fizz:4\n" +
+                                "buzz:3";
         //when
         String result = fizzBuzzService.generateReport(start, end);
         //then
