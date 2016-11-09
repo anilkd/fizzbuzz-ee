@@ -21,9 +21,9 @@ public class FizzBuzzRuleServiceImpl implements FizzBuzzRuleService<FizBuzzRule>
         addRule(isDivisibleByFive, "buzz");
     }
 
-  /*  public FizzBuzzRuleServiceImpl(List<FizBuzzRule> fizBuzzRules) {
+    public FizzBuzzRuleServiceImpl(List<FizBuzzRule> fizBuzzRules) {
         rules.addAll(fizBuzzRules);
-    }*/
+    }
 
     @Override
     public List<FizBuzzRule> getRules() {
