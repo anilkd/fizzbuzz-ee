@@ -1,7 +1,10 @@
 package com.ee.fizzbuzz.service;
 
-import com.ee.fizzbuzz.rules.FizzBuzzPredicateFactory;
+import com.ee.fizzbuzz.rules.FizBuzzRule;
+import com.ee.fizzbuzz.rules.FizzBuzzRuleService;
+import com.ee.fizzbuzz.rules.FizzBuzzRuleServiceImpl;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -14,21 +17,18 @@ public class FizzBuzzServiceImpl implements FizzBuzzService {
 
 
     private static final String DELIMITER = " ";
-    public static final String DELIMETER_2 = ":";
+    public static final String DELIMITER_2 = ":";
     public static final String NEW_LINE = "\n";
-    private final Map<Predicate<Integer>, String> predicateMap;
+    public static final String INTEGER = "integer";
+    public static final String IS_DIGIT = "[0-9]+";
+
+    private FizzBuzzRuleService<FizBuzzRule<Integer, String>> ruleService;
 
 
     public FizzBuzzServiceImpl() {
-        this(FizzBuzzPredicateFactory.getPredicateMap());
+        this.ruleService = new FizzBuzzRuleServiceImpl();
     }
 
-    /**
-     * @param predicateMap map of predicate and results
-     */
-    public FizzBuzzServiceImpl(Map<Predicate<Integer>, String> predicateMap) {
-        this.predicateMap = predicateMap;
-    }
 
     @Override
     public String parseNumbers(int start, int end) {
@@ -48,23 +48,34 @@ public class FizzBuzzServiceImpl implements FizzBuzzService {
 
         String groupByReport = reportMap.entrySet()
                 .stream()
-                .map(entry -> entry.getKey() + DELIMETER_2 + entry.getValue())
+                .map(entry -> entry.getKey() + DELIMITER_2 + entry.getValue())
                 .collect(Collectors.joining(NEW_LINE));
 
         return finalReport.append(parsedText).append(NEW_LINE).append(groupByReport).toString();
     }
 
     private String isWord(String input) {
-        return input.matches("[0-9]+") ? "integer" : input;
+        return input.matches(IS_DIGIT) ? INTEGER : input;
     }
 
     private String convert(int number) {
-        return predicateMap.entrySet()
+        return getRulesGroupByPredicate()
+                .entrySet()
                 .stream()
                 .filter(entry -> entry.getKey().test(number))
                 .findAny()
                 .map(Map.Entry::getValue)
                 .orElse(String.valueOf(number));
+    }
+
+    private Map<Predicate<Integer>, String> getRulesGroupByPredicate() {
+        return ruleService.getRules()
+                .stream()
+                .collect(Collectors.toMap(FizBuzzRule::getPredicate,
+                        FizBuzzRule::getResult,
+                        (k, v) -> k,
+                        LinkedHashMap::new));
+
     }
 
     private boolean validateInput(int start, int end) {
